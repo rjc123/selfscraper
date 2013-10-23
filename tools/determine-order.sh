@@ -16,18 +16,24 @@ do
 		current_url=$(head -n1 $working/todo)	
 		echo $current_url >> $working/out2
 		
-#		This code concatenates the markdown associated with the working file
-		mkdn=$(echo $current_url | sed 's/.*www/fymd/g' )
-		echo "START OF PAGE $index_url" >> $working/out3
-		cat $cache/$mkdn >> $working/out3
-
 #		Figure out new links in the current working file		
 		html=$(echo $current_url | sed 's/.*www/www/g' )
 		grep -o '<a href[^>]*>' $cache/$html | 
 			grep -o 'http[^\"]*' | 
-			grep -v -f exclude.txt | 
+			grep -v -x -f exclude.txt | 
+			grep -x -f include.txt |
 			grep -v -f $working/out2 | 
 			grep -v -f $working/todo >> $working/todo
+
+#		This code concatenates the HTML associated with the working file
+		echo "START OF PAGE $current_url" >> $working/out3
+		cat $cache/$html >> $working/out3
+		echo "END OF PAGE $current_url" >> $working/out3
+
+#		This code concatenates the markdown associated with the working file
+#		mkdn=$(echo $current_url | sed 's/.*www/fymd/g' )
+#		echo "START OF PAGE $index_url" >> $working/out3
+#		cat $cache/$mkdn >> $working/out3
 
 		tail -n +2 $working/todo | awk '!x[$0]++' > tmpfile && mv tmpfile $working/todo
 		
