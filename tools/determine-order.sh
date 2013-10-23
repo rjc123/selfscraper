@@ -20,8 +20,8 @@ do
 		html=$(echo $current_url | sed 's/.*www/www/g' )
 		grep -o '<a href[^>]*>' $cache/$html | 
 			grep -o 'http[^\"]*' | 
-			grep -v -x -f exclude.txt | 
-			grep -x -f include.txt |
+			grep -v -x -f data/exclude.txt | 
+			grep -x -f data/include.txt |
 			grep -v -f $working/out2 | 
 			grep -v -f $working/todo >> $working/todo
 
