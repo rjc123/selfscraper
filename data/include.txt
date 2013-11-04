@@ -1,1 +1,1 @@
-http://www.archive.official-documents.co.uk/document/.*
+^http://www.archive.official-documents.co.uk/document/.*$
