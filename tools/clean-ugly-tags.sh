@@ -1,11 +1,14 @@
+
 dirtyfile=$1
-workingfile='cache/workingfile'
-cp $dirtyfile $workingfile
+cleaningfile='cache/cleaningfile'
+cp $dirtyfile $cleaningfile
+
 for this_regex in $(cat data/clean-instructions.txt)
 do
 
-	sed -E "$this_regex" $workingfile > tmpfile && mv tmpfile $workingfile
+	sed -E "$this_regex" $cleaningfile > smalltmpfile && mv smalltmpfile $cleaningfile
 	
 done
-uniq $workingfile | cat 
-rm $workingfile
+
+uniq $cleaningfile 
+rm $cleaningfile
