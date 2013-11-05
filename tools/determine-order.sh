@@ -54,10 +54,6 @@ do
 			mv $cache/cola $working/out4
 		echo FOUND THESE ATTACHMENTS
 		cat $working/out4
-#		mkdn1=$(echo $current_url | sed 's/.*www/fymd/g' )
-#		echo "" >> $working/out4q
-#		cat $cache/$mkdn1 >> $working/out4
-#		echo "" >> $working/out4
 
 #		This code concatenates the FYMD markdown associated with the working file
 #		mkdn2=$(echo $current_url | sed 's/.*www/kmdn/g' )
