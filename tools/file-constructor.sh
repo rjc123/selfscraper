@@ -10,13 +10,18 @@ for raw_url in $(cat $urls)
 do
 	govuk=$(echo $raw_url | sed 's/.*www/govuk/g')
 	
-	#Hash the ordered urls
+	#Write the root URL
 	echo "\"$raw_url\"," >> $finaloutput
+	
+	#Hash the ordered urls
 	echo "\"["$(awk '{ print "\""$1"\"" "," }' $cache/$govuk/ordered_list_of_urls ) "]\"" | sed 's/, ]/]/' >> $finaloutput
 	echo ",\"" >> $finaloutput
 	
 	#Split the Markdownified file and write using a delimiter
 	sed 's/\"/\"\"/g' $cache/$govuk/ordered_markdown_wip | awk '{ if ((NR % 600) == 0) printf("\",\"\n"); print; }'  >> $finaloutput
-	echo "\"" >> $finaloutput
-	
+	echo "\",\"" >> $finaloutput
+
+	#Write the JSONified file
+	echo $(cat $cache/$govuk/jsonified_attachments) >> $finaloutput	
+	echo "\"" >> $finaloutput		
 done
