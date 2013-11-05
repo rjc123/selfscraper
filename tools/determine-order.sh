@@ -46,12 +46,17 @@ do
 		echo "END OF PAGE <a href='$current_url'>$current_url</a><br>" >> $working/out3
 		echo "" >> $working/out3
 
-#		This code concatenates the FYMD markdown associated with the working file
+#		This code adds PDF and GIF attachments to out4
+		grep -o 'http[^\"]*.pdf' $cache/$html >> $working/out4
+		grep -o 'http[^\"]*.gif' $cache/$html >> $working/out4
+		grep -v -f data/exclude.txt $working/out4 | 
+			sort | uniq > $cache/cola && 
+			mv $cache/cola $working/out4
+		echo FOUND THESE ATTACHMENTS
+		cat $working/out4
 #		mkdn1=$(echo $current_url | sed 's/.*www/fymd/g' )
-#		echo "START OF PAGE $current_url" >> $working/out4
-#		echo "" >> $working/out4
+#		echo "" >> $working/out4q
 #		cat $cache/$mkdn1 >> $working/out4
-#		echo "END OF PAGE $current_url" >> $working/out4
 #		echo "" >> $working/out4
 
 #		This code concatenates the FYMD markdown associated with the working file
@@ -71,5 +76,6 @@ do
 	mv -f $working/out1 $cache/$final_dir/root_url
 	mv -f $working/out2 $cache/$final_dir/ordered_list_of_urls
 	mv -f $working/out3 $cache/$final_dir/ordered_html
+	mv -f $working/out4 $cache/$final_dir/attachment_list
 	
 done

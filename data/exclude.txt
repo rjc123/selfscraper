@@ -1,2 +1,19 @@
 ^http://www.archive.official-documents.co.uk/$
+^http://www.archive.official-documents.co.uk$
 ^http://www.official-documents.co.uk/$
+^http://www.official-documents.co.uk$
+backgrn1.gif
+prevblu.gif
+ctntblu.gif
+nextblu.gif
+ordrblu.gif
+odocblu.gif
+ftxtblu.gif
+tsologo1.gif
+backblu.gif
+dtilogo.gif
+contblu.gif
+www.archive.official-documents.co.uk/img
+^http://www.clicktso.com$
+^http://www.archive.official-documents.co.uk/form/tsoform.htm$
+MUST BE NO NEW LINE AT END OF FILE
