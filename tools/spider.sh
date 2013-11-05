@@ -2,10 +2,10 @@
 #Not only a spider, it recursively downloads the HTML of a list of urls
 #usage: $1 file name $2 domain  
 
-site_of_interest="digitalstandards.cabinetoffice.gov.uk"
+site_of_interest="archive.official-documents.co.uk"
 
 
-echo "" > cache/spider-done.txt #comment out to continue from last
+# echo "" > cache/spider-done.txt #comment out to continue from last
 sort $1 | uniq > cache/spider-to-do.txt 
  
 while [ -s cache/spider-to-do.txt ]
@@ -24,16 +24,16 @@ do
  
           	# retrieve HTML page for LCCN and save a local copy
           	cd cache/docs 
-          	mkdir -p $filelccn
-          	wget -q -k $lccn -O $filelccn/index.html 
+          	mkdir -p $(echo $filelccn | sed 's/\/[^\/]*$//')
+          	wget -q -k $lccn -O $filelccn 
         #  	iconv -c -t UTF8 $filelccn > tmpfile && mv tmpfile $filelccn
          	cd ../..
          
-          	if [ -f "cache/docs/$filelccn/index.html" ]
+          	if [ -f "cache/docs/$filelccn" ]
 		  	then
 
           		# go through page and find links
-		  		grep -o -i "<a href=[^>]*>" cache/docs/$filelccn | sed "s/^.*http/http/g" | sed 's/\'.*$//g' | sed 's/\".*$//g' | sed 's/#.*//g' | sort | uniq | grep -F $site_of_interest > cache/thispageurls
+		  		grep -o -i "<a href=[^>]*>" cache/docs/$filelccn | sed "s/^.*http/http/g" |  sed 's/\".*$//g' | sed 's/#.*//g' | sort | uniq | grep -F $site_of_interest > cache/thispageurls
 		  		echo Adding $(cat cache/thispageurls)	  
 		  
 		  		# add the urls that aren't done to the to-do list

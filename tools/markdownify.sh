@@ -5,7 +5,7 @@ workingdocument='cache/workingdocument'
 
 for raw_document in $(sed 's/.*www/govuk/g' $urlfile | cat)
 do
-	echo "working on $raw_document"
+	echo "WORKING ON $raw_document"
 #	sh tools/determine-order.sh $raw_document
 	cp $cache$raw_document/ordered_html $workingdocument
 		
