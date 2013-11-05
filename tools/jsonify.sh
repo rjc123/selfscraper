@@ -12,7 +12,7 @@ do
 	
 	for attach_url in $(cat $cache/$raw_url/attachment_list)
 		do
-			echo "{ \"\"link\"\"=\"\"$attach_url\"\" , \"\"title\"\"=\"\""$(echo $attach_url | sed 's/[^\/]*$//')"\"\" }," >> $jsonworkingdocument
+			echo "{ \"\"link\"\":\"\"$attach_url\"\" , \"\"title\"\":\"\""$(echo $attach_url | sed 's/^.*\///g')"\"\" }," >> $jsonworkingdocument
 		
 		done
 			

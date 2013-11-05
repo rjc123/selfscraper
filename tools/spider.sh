@@ -3,7 +3,7 @@
 #usage: $1 file name $2 domain  
 
 site_of_interest="archive.official-documents.co.uk"
-
+touch cache/spider-done.txt
 
 # echo "" > cache/spider-done.txt #comment out to continue from last
 sort $1 | uniq > cache/spider-to-do.txt 

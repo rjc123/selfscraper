@@ -13,6 +13,8 @@ tsologo1.gif
 backblu.gif
 dtilogo.gif
 contblu.gif
+nxtdpblu.gif
+blu.gif
 www.archive.official-documents.co.uk/img
 ^http://www.clicktso.com$
 ^http://www.archive.official-documents.co.uk/form/tsoform.htm$
