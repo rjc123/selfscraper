@@ -8,6 +8,12 @@ cache="cache/docs"
 working="cache/docs/working"
 rm $working/out*
 rm $working/todo
+touch $working/out1
+touch $working/out2
+touch $working/out3
+touch $working/out4
+
+
 
 for index_url in $(cat $urls) 
 do
