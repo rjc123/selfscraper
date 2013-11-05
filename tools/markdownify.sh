@@ -21,7 +21,8 @@ iconv -c -t utf-8 $workingdocument | pandoc -R -f html -t markdown_strict > cach
 
 #Clean the remainder tags
 #grep -o '<[^>]*>' $workingdocument | sort | uniq >> cache/errortags
-sed "s/<\/*[^t][^>]*>//g" $workingdocument | 	#get rid of any non table tags
+sed "s/<[^\/|^t][^>]*>//g" $workingdocument | 	#get rid of any non table tags
+	sed "s/<\/[^t][^>]*>//g" |
 	sed "s/ / /g" |   						#non printable tab character becomes space
 	sed "s/^ *#### *$//g" | 				#get rid of unnecessary headers
 	sed "s/ +/ /g" | 
