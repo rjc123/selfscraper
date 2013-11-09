@@ -1,6 +1,12 @@
 /<[^>]*$/N;s/\n//g
 /<[^>]*$/N;s/\n//g
 /<[^>]*$/N;s/\n//g
+s/<H/<p><h/g
+s/<\/H/<\/h/g
+s/<B>/<b>/g
+s/<\/B>/<\/b>/g
+s/<I>/<i>/g
+s/<\/I>/<\/i>/g
 s/<table[^>]*>/<table>/g
 s/<TABLE[^>]*>/<table>/g
 s/<td[^>]*>/<td>/g
@@ -44,7 +50,10 @@ s/<\/center>//g
 s/<address[^>]*>//g
 s/<\/address>//g
 s/<meta[^>]*>//g
-s/<table[^>]*>/<br><br>$CTA<br>SCRAPER-HAS-DETECTED-TABLE-HERE<br>$CTA<br><br><table>/g
+s/<table[^>]*>/<p>$CTA<\/p><p>SCRAPER-HAS-DETECTED-TABLE-HERE<\/p><p>$CTA<\/p><table>/g
 s/<\/*div[^>]*>//g
 s/<[b|i]><[b|i]>/<h4>/g
 s/<\/[b|i]><\/[b|i]>/<\/h4>/g
+s/<table>//g
+s/<\/table>//g
+

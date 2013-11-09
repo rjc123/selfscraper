@@ -38,9 +38,16 @@ do
 			grep -v -f $working/todo >> $working/todo
 
 #		This code concatenates the HTML associated with the working file
-		echo "<h2> START OF PAGE <a href='$current_url'>$current_url</a></h2>" >> $working/out3
-		echo "" >> $working/out3
+#		echo "<h2> START OF PAGE <a href='$current_url'>$current_url</a></h2>" >> $working/out3
+#		echo "" >> $working/out3
+
 		cat $cache/$html | iconv -c -t utf-8 >> $working/out3
+
+#		Add a page break
+  	echo "<div style='page-break-before: always'></div>" >> $working/out3
+		echo "" >> $working/out3
+
+
 #		cat $cache/$html |
 #			sed -e 'N; s/\n/ /g' |
 #			sed -n -e '/<[body|BODY]/,$p' |
@@ -49,8 +56,8 @@ do
 #			sed 's/<\/body[^>]*>//g' |
 #			sed 's/<BODY[^>]*>//g' |
 #			sed 's/<\/BODY[^>]*>//g' >> $working/out3
-		echo "END OF PAGE <a href='$current_url'>$current_url</a><br>" >> $working/out3
-		echo "" >> $working/out3
+#		echo "END OF PAGE <a href='$current_url'>$current_url</a><br>" >> $working/out3
+#		echo "" >> $working/out3
 
 #		This code adds PDF and GIF attachments to out4
 		grep -o 'http[^\"]*.pdf' $cache/$html >> $working/out4
@@ -77,7 +84,7 @@ do
 	cat $working/out2 | awk '!x[$0]++' 
 	mv -f $working/out1 $cache/$final_dir/root_url
 	mv -f $working/out2 $cache/$final_dir/ordered_list_of_urls
-	mv -f $working/out3 $cache/$final_dir/ordered_html
+	mv -f $working/out3 $cache/$final_dir/ordered_html.html
 	mv -f $working/out4 $cache/$final_dir/attachment_list
 	
 done

@@ -3,17 +3,18 @@
 
 urls=$1
 
-#Get HTML
+#Get HTML of the page stored locally
 sh tools/spider.sh $urls 
-
 sh tools/determine-order.sh $urls
 
-#Get Markdownified version
+#Make Markdownified version
 sh tools/markdownify.sh $urls 
 
-#Get JSONified version of attachments
-sh tools/jsonify.sh $urls 
+#Make PDFified version
+sh tools/pdfify.sh $urls
 
+#Get JSONified version of attachment listing
+sh tools/jsonify.sh $urls 
 
 #Construct an output file
 sh tools/file-constructor.sh $urls

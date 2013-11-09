@@ -25,7 +25,9 @@ do
           	# retrieve HTML page for LCCN and save a local copy
           	cd cache/docs 
           	mkdir -p $(echo $filelccn | sed 's/\/[^\/]*$//')
-          	wget -q -k $lccn -O $filelccn 
+#          	wget -x -E --no-cookies -r -l 100 -k -p -np -q $lccn -O $filelccn
+ 						wget -x -E --no-cookies -r -l 0 -p -m -np -Pcache/docs -e robots=off --random-wait $lccn 
+
         #  	iconv -c -t UTF8 $filelccn > tmpfile && mv tmpfile $filelccn
          	cd ../..
          
