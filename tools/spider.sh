@@ -20,13 +20,13 @@ do
     	then
 			filelccn=$(echo $lccn | sed 's/.*fuckyeahmarkdown.*www\./fymd\./g' | sed 's/http:\/\///g' )
 			
-			echo "Processing $lccn, $filelccn"
+			echo "Spidering $lccn to save to $filelccn"
  
           	# retrieve HTML page for LCCN and save a local copy
           	cd cache/docs 
           	mkdir -p $(echo $filelccn | sed 's/\/[^\/]*$//')
 #          	wget -x -E --no-cookies -r -l 100 -k -p -np -q $lccn -O $filelccn
- 						wget -x -E --no-cookies -r -l 0 -p -m -np -Pcache/docs -e robots=off --random-wait $lccn 
+ 						wget -x -E --no-cookies -r -l 0 -p -np -q -Pcache/docs -e robots=off --random-wait $lccn 
 
         #  	iconv -c -t UTF8 $filelccn > tmpfile && mv tmpfile $filelccn
          	cd ../..
