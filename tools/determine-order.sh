@@ -6,12 +6,15 @@ rm -r cache/docs/govuk*
 urls=$1
 cache="cache/docs"
 working="cache/docs/working"
+
 rm $working/out*
 rm $working/todo
+mkdir -p $working
 touch $working/out1
 touch $working/out2
 touch $working/out3
 touch $working/out4
+touch $working/todo
 
 
 
@@ -44,7 +47,7 @@ do
 		cat $cache/$html | iconv -c -t utf-8 >> $working/out3
 
 #		Add a page break
-  	echo "<div style='page-break-before: always'></div>" >> $working/out3
+        echo "<div style='page-break-after: always'></div>" >> $working/out3
 		echo "" >> $working/out3
 
 
@@ -60,8 +63,8 @@ do
 #		echo "" >> $working/out3
 
 #		This code adds PDF and GIF attachments to out4
-		grep -o 'http[^\"]*.pdf' $cache/$html >> $working/out4
-		grep -o 'http[^\"]*.gif' $cache/$html >> $working/out4
+		grep -o '*.pdf' $cache/$html >> $working/out4
+		grep -o '*.gif' $cache/$html >> $working/out4
 		grep -v -f data/exclude.txt $working/out4 | 
 			sort | uniq > $cache/cola && 
 			mv $cache/cola $working/out4
