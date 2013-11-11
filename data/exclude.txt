@@ -16,4 +16,7 @@ contblu.gif
 nxtdpblu.gif
 ^http://www.clicktso.com$
 ^http://www.archive.official-documents.co.uk/form/tsoform.htm$
+^http://www.archive.official-documents.co.uk/cgi-bin/search.pl
+^http://www.archive.official-documents.co.uk/index.html$
+^http://www.archive.official-documents.co.uk/menu/comments.htm$
 ^MUSTBENONEWLINEATENDOFFILE$

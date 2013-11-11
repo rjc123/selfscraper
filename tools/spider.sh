@@ -1,8 +1,13 @@
 #! /bin/bash
 #Not only a spider, it recursively downloads the HTML of a list of urls
-#usage: $1 file name $2 domain  
+#usage: $1 file name $2 domain of interest  
 
+cache="cache/docs"
 site_of_interest="archive.official-documents.co.uk"
+#site_of_interest=$2
+
+rm cache/spider-done.txt
+rm cache/spider-to-do.txt
 touch cache/spider-done.txt
 
 # echo "" > cache/spider-done.txt #comment out to continue from last
@@ -15,48 +20,51 @@ do
           
 	# get first LCCN from TODO list and store a copy
     lccn=$(head -n1 cache/spider-to-do.txt)
+		filelccn=$(echo $lccn | sed 's/.*fuckyeahmarkdown.*www\./fymd\./g' | sed 's/http:\/\///g' )
 
     if [ -n "$lccn" ]
     	then
-			filelccn=$(echo $lccn | sed 's/.*fuckyeahmarkdown.*www\./fymd\./g' | sed 's/http:\/\///g' )
-			
-			echo "Spidering $lccn to save to $filelccn"
+				echo "Spidering $lccn" 
  
-          	# retrieve HTML page for LCCN and save a local copy
-          	cd cache/docs 
-          	mkdir -p $(echo $filelccn | sed 's/\/[^\/]*$//')
-#          	wget -x -E --no-cookies -r -l 100 -k -p -np -q $lccn -O $filelccn
- 						wget -x -E --no-cookies -r -l 0 -p -np -q -Pcache/docs -e robots=off --random-wait $lccn 
-
-        #  	iconv -c -t UTF8 $filelccn > tmpfile && mv tmpfile $filelccn
-         	cd ../..
+       	# retrieve HTML page for LCCN and save a local copy with furniture
+       	mkdir -p $cache/$(echo $filelccn | sed 's/\/[^\/]*$//')
+			  if [ -f "$cache/$filelccn" ]
+				then 
+		  		echo "Skipping $cache/$filelccn - already downloaded"
+      	else
+		  		echo "Downloading $cache/$filelccn - not already downloaded"
+		  		wget -x -E --no-cookies -p -np -P$cache -e robots=off --random-wait -k $lccn
+		  	fi
          
-          	if [ -f "cache/docs/$filelccn" ]
+        if [ -f "$cache/$filelccn" ]
 		  	then
-
+		  	  echo "file found! $filelccn"
           		# go through page and find links
-		  		grep -o -i "<a href=[^>]*>" cache/docs/$filelccn | sed "s/^.*http/http/g" |  sed 's/\".*$//g' | sed 's/#.*//g' | sort | uniq | grep -F $site_of_interest > cache/thispageurls
-		  		echo Adding $(cat cache/thispageurls)	  
+		  		grep -o -i "<a href=[^>]*>" $cache/$filelccn | 
+		  			sed "s/^.*http/http/g" |  
+		  			sed 's/\".*$//g' | 
+		  			sed 's/#.*//g' | 
+		  			sort | uniq | 
+		  			grep -F $site_of_interest | 
+		  			grep -v -f data/exclude.txt > cache/thispageurls
+		  		echo "URLs found: $(cat cache/thispageurls)" 
 		  
 		  		# add the urls that aren't done to the to-do list
 		  		diff cache/spider-done.txt cache/thispageurls | grep ">" | sed 's/> //g' >> cache/spider-to-do.txt
 		  		rm cache/thispageurls
 
 		  	else
-		  		echo "file missing! $filelccn"
-		 
+		  		echo "file missing! $cache/$filelccn"		 
 		  	fi 
-  		 fi
+  	fi
  		  
- 		 # remove LCCN from TODO list
-         tail -n +2 cache/spider-to-do.txt | sort | uniq > cache/tmpfile &&
-		 mv cache/tmpfile cache/spider-to-do.txt
+ 		# remove LCCN from TODO list
+		tail -n +2 cache/spider-to-do.txt | sort | uniq > cache/tmpfile &&
+			mv cache/tmpfile cache/spider-to-do.txt
 		  
-         # append LCCN to DONE list
-         echo $lccn >> cache/spider-done.txt
- 		 sort cache/spider-done.txt | uniq > cache/tmpfile &&
- 		 mv cache/tmpfile cache/spider-done.txt
+    # append LCCN to DONE list
+    echo $lccn >> cache/spider-done.txt
+ 		sort cache/spider-done.txt | uniq > cache/tmpfile &&
+ 		mv cache/tmpfile cache/spider-done.txt
  
-#          sleep 2
-    
 done
