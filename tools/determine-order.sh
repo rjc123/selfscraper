@@ -1,6 +1,6 @@
 
 #tempreset of govuk working directory
-rm -r cache/docs/govuk*
+#rm -r cache/docs/govuk*
 
 
 urls=$1
