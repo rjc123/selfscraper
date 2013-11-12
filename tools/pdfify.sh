@@ -15,11 +15,12 @@ do
   echo clearing the unnecessary background
 
 	mv $workingdocument $cache/$sourcedirectory/htmlworkingdocument.html
-	wkhtmltopdf --minimum-font-size 2 -n -s A4 -B 12 -R 12 -L 12 -T 12 --no-background $cache/$sourcedirectory/htmlworkingdocument.html $cache/$outputdoc
+#	wkhtmltopdf --minimum-font-size 2 -n -s A4 -B 12 -R 12 -L 12 -T 12 --no-background $cache/$sourcedirectory/htmlworkingdocument.html $cache/$outputdoc
+	cupsfilter -o size=A4 $cache/$sourcedirectory/htmlworkingdocument.html > $cache/$outputdoc
 	rm $sourcedirectory/htmlworkingdocument.html
 	mv $cache/$outputdoc $cache/$html_document/$outputdoc
 	echo $cache/$html_document/$outputdoc has been PDFified
-#	open $cache/$html_document/$outputdoc 
+	open $cache/$html_document/$outputdoc 
 		
 done
 	

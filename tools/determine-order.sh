@@ -47,9 +47,8 @@ do
 		cat $cache/$html | iconv -c -t utf-8 >> $working/out3
 
 #		Add a page break
-        echo "<div style='page-break-after: always'></div>" >> $working/out3
-		echo "" >> $working/out3
-
+    echo "<div style='page-break-before: always'><table><td></td></table></div>" >> $working/out3
+ 		echo "" >> $working/out3
 
 #		cat $cache/$html |
 #			sed -e 'N; s/\n/ /g' |
