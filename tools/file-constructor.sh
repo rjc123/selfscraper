@@ -39,4 +39,6 @@ done
 
 sed 's/, ]/]/g' $finaloutput > $cache/tmply &&
 	mv $cache/tmply $finaloutput
+	mv $finaloutput done/$urls.csv
+
 	
