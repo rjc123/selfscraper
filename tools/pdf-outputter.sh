@@ -8,7 +8,9 @@ do
 
 	source=$(echo $url | sed 's/.*www/govuk/' | sed 's/[^.]*$/pdf/')
 	target=$(echo $url | sed 's/.*www/www/' | sed 's/[^.]*$/pdf/')
-	cp $cache/$source $output/$target
-	git diff $output*
-
+	mkdir -p $output/$(echo $target | sed 's/[^\/]*$//')
+	cp -v -a -f $cache/$source $output/$target
 done
+
+git add $output*
+git commit -m "New copies of PDFs in output from $urls"
