@@ -6,17 +6,17 @@ output="output"
 finaloutput="finaloutput.csv"
 
 #construct file headers
-echo "root_old_url,old_url,attachment_1_url,attachment_1_title\c" > $finaloutput
-for i in {1..99}
-	do
-		echo ",html_body_$i\c" >> $finaloutput
-	done
-echo "" >> $finaloutput
+#echo "root_old_url,old_url,attachment_1_url,attachment_1_title\c" > $finaloutput
+#for i in {1..99}
+#	do
+#		echo ",html_body_$i\c" >> $finaloutput
+#	done
+#echo "" >> $finaloutput
 
 for raw_url in $(cat $urls)
 do
 	govuk=$(echo $raw_url | sed 's/.*www/govuk/g')
-	outurl=$(echo $raw_url | sed 's/.*www/www/g' | sed 's/[^\/]*$/pdf/' )
+	outurl=$(echo $raw_url | sed 's/.*www/www/g' | sed 's/[^\.]*$/pdf/' )
 
 	#Write the root URL
 	echo "\"$raw_url\",\"\c" >> $finaloutput
@@ -26,7 +26,7 @@ do
 	echo ",\"\c" >> $finaloutput
 
 	#Write the PDFified attachment file
-	echo "https://www.github.com/rjc123/selfscraper/$output/$outurl\",\"Manufactured PDF for $raw_url\"\c"
+	echo "https://github.com/rjc123/selfscraper/raw/master/$output/$outurl\",\"Manufactured PDF for $raw_url\"\c" >> $finaloutput
 
 	#Write the JSONified attachment file
 #	echo $(cat $cache/$govuk/jsonified_attachments)"\c" >> $finaloutput	
@@ -35,10 +35,11 @@ do
 	#Split the Markdownified file and write using a delimiter
 #	sed 's/\"/\"\"/g' $cache/$govuk/ordered_markdown_wip | awk '{ if ((NR % 750) == 0) printf("\",\"\n"); print; }'  >> $finaloutput
 
+	echo "" >> $finaloutput
 done
 
 sed 's/, ]/]/g' $finaloutput > $cache/tmply &&
 	mv $cache/tmply $finaloutput
-	mv $finaloutput done/$urls.csv
+	mv $finaloutput $urls.csv
 
 	
