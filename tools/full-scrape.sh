@@ -16,6 +16,9 @@ sh tools/pdfify.sh $urls
 #Get JSONified version of attachment listing
 sh tools/jsonify.sh $urls 
 
+#Move PDFs to output directory
+sh tools/pdf-outputter.sh $urls
+
 #Construct an output file
 sh tools/file-constructor.sh $urls
 
