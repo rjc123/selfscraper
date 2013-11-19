@@ -7,7 +7,7 @@ targetfinaldoc="";
 for html_document in $(cat $urlfile | sed 's/.*www/govuk/g' )
 do
 	sourcedirectory=$(echo $html_document | sed 's/govuk/www/; s/\/[^\/]*$//'  )
-	targetfinaldoc=$(echo $sourcedirectory | sed 's/[^\.]*/pdf/' )
+	targetfinaldoc=$(echo $sourcedirectory | sed 's/[^\.]*$/pdf/' )
 	
 	echo "PDFIFYING $html_document"
 	cp $cache/$html_document/ordered_html.html $workingdocument
