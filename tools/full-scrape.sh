@@ -19,3 +19,4 @@ sh tools/jsonify.sh $urls
 #Construct an output file
 sh tools/file-constructor.sh $urls
 
+echo "Done List $urls"
