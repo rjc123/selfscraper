@@ -35,7 +35,7 @@ do
 	mv $workingdocument $cache/$sourcedirectory/htmlworkingdocument.html
 #	wkhtmltopdf --minimum-font-size 2 -n -s A4 -B 12 -R 12 -L 12 -T 12 --no-background $cache/$sourcedirectory/htmlworkingdocument.html $cache/$outputdoc
 	cupsfilter -o size=A2 -o fit-to-page $cache/$sourcedirectory/htmlworkingdocument.html > $cache/$outputdoc
-	rm $sourcedirectory/htmlworkingdocument.html
+	rm $cache/$sourcedirectory/htmlworkingdocument.html
 	mv -f $cache/$outputdoc $cache/$targetfinaldoc
 	echo $cache/$targetfinaldoc has been PDFified
 #	open $cache/$targetfinaldoc 
