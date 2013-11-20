@@ -1,8 +1,9 @@
 
+domain=$1
+mkdir -p $domain
+wget -np -r -l0 -k -x --delete-after -T1 --spider -o $domain.log $domain
+grep -F $domain $domain.log | grep -o 'http:\/\/[^\ \"\(\)\<\>]*' | sort | uniq > $domain.urls.txt
 
-wget -r -l0 -k -x --delete-after -o logfile www.ukho.gov.uk
-
-
-#Then grep for '\-\-' and output the links.
+echo "DONE SPIDERING $domain"
 
 
