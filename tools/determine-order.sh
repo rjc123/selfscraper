@@ -34,6 +34,7 @@ do
 		html=$(echo $current_url | sed 's/.*www/www/g' )
 		grep -i -o '<a href[^>]*>' $cache/$html | 
 			grep -i -o 'http[^\"]*' | 
+			grep -i -o 'http[^\']*' | 
 			grep -i -o 'http[^\#]*' |
 			grep -v -x -f data/exclude.txt | 
 			grep -x -f data/include.txt |

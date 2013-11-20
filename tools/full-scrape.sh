@@ -3,6 +3,9 @@
 
 urls=$1
 
+#Uniquify the input list
+sort $urls | uniq > cache/tempty && mv cache/tempty $urls
+
 #Get HTML of the page stored locally
 sh tools/spider.sh $urls 
 sh tools/determine-order.sh $urls
@@ -21,5 +24,7 @@ sh tools/pdf-outputter.sh $urls
 
 #Construct an output file
 sh tools/file-constructor.sh $urls
+
+mv $urls done
 
 echo "Done List $urls"

@@ -43,6 +43,7 @@ do
 		  		grep -o -i "<a href=[^>]*>" $cache/$filelccn | 
 		  			sed "s/^.*http/http/g" |  
 		  			sed 's/\".*$//g' | 
+		  			sed "s/\'.*$//g" | 
 		  			sed 's/#.*//g' | 
 		  			sort | uniq | 
 		  			grep -F $site_of_interest | 
