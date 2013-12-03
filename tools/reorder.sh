@@ -12,7 +12,7 @@ do
 	final_dir=$(echo $index_url | sed 's/.*www/govuk/g')
 	mkdir -p $cache/$final_dir
 	
-	for current_url in $(cat cache/$final_dir/ordered_list_of_urls
+	for current_url in $(cat $cache/$final_dir/ordered_list_of_urls)
 	
 	do
 		

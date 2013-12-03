@@ -46,7 +46,7 @@ do
 		  			sed "s/\'.*$//g" | 
 		  			sed 's/#.*//g' | 
 		  			sort | uniq | 
-		  			grep -F $site_of_interest | 
+		 # 			grep -F $site_of_interest | 
 		  			grep -v -f data/exclude.txt > cache/thispageurls
 		  		echo "URLs found: $(cat cache/thispageurls)" 
 		  
