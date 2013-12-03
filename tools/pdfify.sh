@@ -24,7 +24,7 @@ do
 
 	#Clear only known ugly link furniture tags
 	sed '/We welcome/{ N; s/We welcome.*this site\.//g; }' $workingdocument  > cache/tmporarfile && mv cache/tmporarfile $workingdocument
-	sed '/.gif/{N; s/<[a|A].*<[i|I][m|M][g|G].*blu\.gif.*\/[a|A]>//g; }' $workingdocument  > cache/tmporarfile && mv cache/tmporarfile $workingdocument
+	sed '/.gif/{N; s/<[i|I][m|M][g|G][^>]*blu\.gif[^>]*>//g; }' $workingdocument  > cache/tmporarfile && mv cache/tmporarfile $workingdocument
 	sed 's/<[h|H][R|r][^>]*>//g' $workingdocument  > cache/tmporarfile && mv cache/tmporarfile $workingdocument
 	sed 's/<[^>]*tsologo[^>]*>//g' $workingdocument  > cache/tmporarfile && mv cache/tmporarfile $workingdocument
 	sed '/address/{N;s/<address.*\/address>//g;}' $workingdocument  > cache/tmporarfile && mv cache/tmporarfile $workingdocument

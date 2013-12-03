@@ -21,7 +21,8 @@ do
 	# get first LCCN from TODO list and store a copy
     lccn=$(head -n1 cache/spider-to-do.txt)
 		filelccn=$(echo $lccn | sed 's/.*fuckyeahmarkdown.*www\./fymd\./g' | sed 's/http:\/\///g' )
-
+		include=$(echo $lccn | grep -o 'www[^\/]*')
+		
     if [ -n "$lccn" ]
     	then
 				echo "Spidering $lccn" 
@@ -33,21 +34,24 @@ do
 		  		echo "Skipping $cache/$filelccn - already downloaded"
       	else
 		  		echo "Downloading $cache/$filelccn - not already downloaded"
-		  		wget -x -E --no-cookies -p -np -P$cache -e robots=off --random-wait -k $lccn
+		  		wget -x -E --no-cookies -D $include -p -np -P$cache -e robots=off --random-wait -k $lccn
 		  	fi
          
         if [ -f "$cache/$filelccn" ]
 		  	then
 		  	  echo "file found! $filelccn"
           		# go through page and find links
-		  		grep -o -i "<a href=[^>]*>" $cache/$filelccn | 
+		  		iconv -t UTF8//IGNORE $cache/$filelccn |
+		  		tr "\n" " " |
+		  		grep -o -i "href=[^>]*" | 
 		  			sed "s/^.*http/http/g" |  
 		  			sed 's/\".*$//g' | 
 		  			sed "s/\'.*$//g" | 
 		  			sed 's/#.*//g' | 
 		  			sort | uniq | 
 		 # 			grep -F $site_of_interest | 
-		  			grep -v -f data/exclude.txt > cache/thispageurls
+		  			grep -v -f data/exclude.txt | 
+		  			grep $include > cache/thispageurls
 		  		echo "URLs found: $(cat cache/thispageurls)" 
 		  
 		  		# add the urls that aren't done to the to-do list
