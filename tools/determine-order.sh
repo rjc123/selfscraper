@@ -33,7 +33,9 @@ do
 		
 #		Figure out new links in the current working file		
 		html=$(echo $current_url | sed 's/.*www/www/g' )
-		grep -i -o 'href[^>]*' $cache/$html | 			
+		tidy $cache/$html > tmpola && mv -f tmpola $cache/$html
+			sed '/href/{N; s/\n//g;}' $cache/$html | 
+			grep -i -o 'href[^>]*' |
 			grep -i -o 'http[^\"]*' | 			
 			grep -i -o 'http[^\#]*' | 			
 			grep -v -x -f data/exclude.txt | 			
@@ -88,7 +90,6 @@ do
 #	cat $working/out2 | awk '!x[$0]++' 
 	mv -f $working/out1 $cache/$final_dir/root_url
 	mv -f $working/out2 $cache/$final_dir/ordered_list_of_urls
-	mv -f $cache/tmporasry $working/out3
 	mv -f $working/out3 $cache/$final_dir/ordered_html.html
 	mv -f $working/out4 $cache/$final_dir/attachment_list
 	
