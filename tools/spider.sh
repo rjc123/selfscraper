@@ -1,27 +1,28 @@
 #! /bin/bash
 #Not only a spider, it recursively downloads the HTML of a list of urls
-#usage: $1 file name $2 domain of interest  
+#usage: $1 file name 
 
 cache="cache/docs"
-site_of_interest="archive.official-documents.co.uk"
-#site_of_interest=$2
 
+#Clear spider history
 rm cache/spider-done.txt
 rm cache/spider-to-do.txt
 touch cache/spider-done.txt
 
 # echo "" > cache/spider-done.txt #comment out to continue from last
 sort $1 | uniq > cache/spider-to-do.txt 
- 
+
+#Loop over the spider-to-do list 
 while [ -s cache/spider-to-do.txt ]
 do
+
 	# if TODO list is not empty then do the following
 	echo Left to do: $(wc -l cache/spider-to-do.txt)
           
 	# get first LCCN from TODO list and store a copy
-    lccn=$(head -n1 cache/spider-to-do.txt)
-		filelccn=$(echo $lccn | sed 's/.*fuckyeahmarkdown.*www\./fymd\./g' | sed 's/http:\/\///g' )
-		include=$(echo $lccn | grep -o 'www[^\/]*')
+  lccn=$(head -n1 cache/spider-to-do.txt)
+	filelccn=$(echo $lccn | sed 's/http:\/\///g' )
+	domain=$(echo $lccn | grep -o 'www[^\/]*') 
 		
     if [ -n "$lccn" ]
     	then
@@ -34,7 +35,7 @@ do
 		  		echo "Skipping $cache/$filelccn - already downloaded"
       	else
 		  		echo "Downloading $cache/$filelccn - not already downloaded"
-		  		wget -x -E --no-cookies -D $include -p -np -P$cache -e robots=off --random-wait -k $lccn
+		  		wget -x -E --no-cookies -D $domain -p -np -P$cache -e robots=off --random-wait -k $lccn
 		  	fi
          
         if [ -f "$cache/$filelccn" ]
@@ -49,9 +50,8 @@ do
 		  			sed "s/\'.*$//g" | 
 		  			sed 's/#.*//g' | 
 		  			sort | uniq | 
-		 # 			grep -F $site_of_interest | 
 		  			grep -v -f data/exclude.txt | 
-		  			grep $include > cache/thispageurls
+		  			grep $domain > cache/thispageurls
 		  		echo "URLs found: $(cat cache/thispageurls)" 
 		  
 		  		# add the urls that aren't done to the to-do list
@@ -65,11 +65,11 @@ do
  		  
  		# remove LCCN from TODO list
 		tail -n +2 cache/spider-to-do.txt | sort | uniq > cache/tmpfile &&
-			mv cache/tmpfile cache/spider-to-do.txt
+			mv -f cache/tmpfile cache/spider-to-do.txt
 		  
     # append LCCN to DONE list
     echo $lccn >> cache/spider-done.txt
  		sort cache/spider-done.txt | uniq > cache/tmpfile &&
- 		mv cache/tmpfile cache/spider-done.txt
+ 			mv -f cache/tmpfile cache/spider-done.txt
  
 done

@@ -11,7 +11,7 @@ sh tools/spider.sh $urls
 sh tools/determine-order.sh $urls
 
 #Make Markdownified version
-sh tools/markdownify.sh $urls 
+#sh tools/markdownify.sh $urls 
 
 #Make PDFified version
 sh tools/pdfify.sh $urls
@@ -25,6 +25,6 @@ sh tools/pdf-outputter.sh $urls
 #Construct an output file
 sh tools/file-constructor.sh $urls
 
-mv $urls done
+#mv $urls done
 
 echo "Done List $urls"
