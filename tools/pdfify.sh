@@ -23,8 +23,8 @@ do
 	#  echo clearing the unnecessary background
 
 	#Clear only known ugly link furniture tags
-	sed '/<img[^>]*$/{N; s/\n//g; s/<img[^>]*blu\.gif[^>]*>//g; s/<img[^>]*btn\.gif[^>]*>//g; s/<img[^>]*line\.gif[^>]*>//g; }' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
-	sed '/<img[^>]*$/{N; s/\n//; s/<img[^>]*home\.gif[^>]*>//g; s/<img[^>]*speech\.gif[^>]*>//g; s/<img[^>]*index\.gif[^>]*>//g; s/<img[^>]*press\.gif[^>]*>//g; }' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
+	sed '/<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*blu\.gif[^>]*>//g; s/<img[^>]*btn\.gif[^>]*>//g; s/<img[^>]*line\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
+	sed '/<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*home\.gif[^>]*>//g; s/<img[^>]*speech\.gif[^>]*>//g; s/<img[^>]*index\.gif[^>]*>//g; s/<img[^>]*press\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed '/We welcome/{ N; s/We welcome.*this site\.//g; }' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed 's/<[h|H][R|r][^>]*>//g' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed 's/<[^>]*tsologo[^>]*>//g' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
