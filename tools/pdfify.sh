@@ -19,7 +19,7 @@ do
 
 	#Clear known ugly link furniture and tags
 	sed '/<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*blu\.gif[^>]*>//g; s/<img[^>]*btn\.gif[^>]*>//g; s/<img[^>]*line\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
-	sed '/<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*home\.gif[^>]*>//g; s/<img[^>]*speech\.gif[^>]*>//g; s/<img[^>]*index\.gif[^>]*>//g; s/<img[^>]*press\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
+	sed '/<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*home\.gif[^>]*>//g; s/<img[^>]*speech\.gif[^>]*>//g; s/<img[^>]*index\.gif[^>]*>//g; s/<img[^>]*press\.gif[^>]*>//g; s/<img[^>]*col-1\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed '/We welcome/{ N; N; s/We welcome.*this site\.//g; }' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed 's/<[h|H][R|r][^>]*>//g' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed 's/<[^>]*tsologo[^>]*>//g' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
@@ -31,8 +31,8 @@ do
 	echo clearing the uncessary table params
 	
 	mv -f $workingdocument $cache/$sourcedirectory/htmlworkingdocument.html
-	cp data/gdsstyle.css $cache/$sourcedirectory
-	cupsfilter -o size=A2 -o fit-to-page $cache/$sourcedirectory/htmlworkingdocument.html > $cache/$outputdoc
+	cp -f data/gdsstyle.css $cache/$sourcedirectory
+	cupsfilter -o size=A4 -o fit-to-page -o scale-to-fit $cache/$sourcedirectory/htmlworkingdocument.html > $cache/$outputdoc
 	rm $cache/$sourcedirectory/htmlworkingdocument.html
 	rm $cache/$sourcedirectory/gdsstyle.css
 	mv -f $cache/$outputdoc $cache/$targetfinaldoc	

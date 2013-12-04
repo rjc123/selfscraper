@@ -33,7 +33,7 @@ do
 		
 #		Figure out new links in the current working file		
 		html=$(echo $current_url | sed 's/.*www/www/g' )
-		tidy $cache/$html > tmpola && mv -f tmpola $cache/$html
+		tidy $cache/$html | iconv -c -t utf-8 > $cache/tmpola && mv -f $cache/tmpola $cache/$html
 			sed '/href/{N; s/\n//g;}' $cache/$html | 
 			grep -i -o 'href[^>]*' |
 			grep -i -o 'http[^\"]*' | 			
@@ -92,5 +92,6 @@ do
 	mv -f $working/out2 $cache/$final_dir/ordered_list_of_urls
 	mv -f $working/out3 $cache/$final_dir/ordered_html.html
 	mv -f $working/out4 $cache/$final_dir/attachment_list
+	echo Moved to $cache/$final_dir/ordered_html.html
 	
 done

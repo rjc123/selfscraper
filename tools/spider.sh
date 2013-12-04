@@ -43,7 +43,7 @@ do
 		  	  echo "file found! $filelccn"
           		# go through page and find links
 		  		iconv -t UTF8//IGNORE $cache/$filelccn |
-		  		tr "\n" " " |
+		  		sed "/<[^>]*$/{N; s/\n//g; }" |
 		  		grep -o -i "href=[^>]*" | 
 		  			sed "s/^.*http/http/g" |  
 		  			sed 's/\".*$//g' | 
