@@ -9,3 +9,4 @@ body {  background: none; width: 100%; !important }
 address { align: center; color: #FFFFFF; !important }
 table td, table th { align:left; border:none; !important }
 table { width: 100%; !important }
+img { max-width:100%; max-height100%; !important }
