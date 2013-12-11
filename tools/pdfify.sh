@@ -20,6 +20,7 @@ do
 	#Clear known ugly link furniture and tags
 	sed '/<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*blu\.gif[^>]*>//g; s/<img[^>]*btn\.gif[^>]*>//g; s/<img[^>]*line\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed '/<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*home\.gif[^>]*>//g; s/<img[^>]*speech\.gif[^>]*>//g; s/<img[^>]*index\.gif[^>]*>//g; s/<img[^>]*press\.gif[^>]*>//g; s/<img[^>]*col-1\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
+	sed '/<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; /<img[^>]*$/{N; s/\n//g;}; s/<img[^>]*tback\.gif[^>]*>//g; s/<img[^>]*tforwar\.gif[^>]*>//g; s/<img[^>]*home\.gif[^>]*>//g;s/<img[^>]*forward\.gif[^>]*>//g; s/<img[^>]*back\.gif[^>]*>//g;s/<img[^>]*upfooter\.gif[^>]*>//g;' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed '/We welcome/{ N; N; s/We welcome.*this site\.//g; }' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed 's/<[h|H][R|r][^>]*>//g' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument
 	sed 's/<[^>]*tsologo[^>]*>//g' $workingdocument  > cache/tmporarfile && mv -f cache/tmporarfile $workingdocument

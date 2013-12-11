@@ -30,25 +30,26 @@ do
 	do
 		current_url=$(head -n1 $working/todo)	
 		echo $current_url >> $working/out2
-		
+
+		unset LANG
 #		Figure out new links in the current working file		
 		html=$(echo $current_url | sed 's/.*www/www/g' )
-		tidy $cache/$html | iconv -c -t utf-8 > $cache/tmpola && mv -f $cache/tmpola $cache/$html
-			sed '/href/{N; s/\n//g;}' $cache/$html | 
-			grep -i -o 'href[^>]*' |
-			grep -i -o 'http[^\"]*' | 			
-			grep -i -o 'http[^\#]*' | 			
-			grep -v -x -f data/exclude.txt | 			
-			grep -x -f data/include.txt |
-			grep -v -f $working/out2 | 
-			grep -v -f $working/todo |
-			grep $include >> $working/todo
+
+# comment this so that the tidy doesn't remove all links
+		tidy $cache/$html | 
+			iconv -c -t utf-8 > $cache/tmpola && mv -f $cache/tmpola $cache/$html
+
+#			iconv -c -t utf-8 $cache/$html > $cache/tmpola && mv -f $cache/tmpola $cache/$html
+			sed '/href/{N; s/\n//g;}' $cache/$html | grep -i -o 'href[^>]*' | grep -i -o 'http[^\"]*' | 			
+			grep -i -o 'http[^\#]*' | grep -v -x -f data/exclude.txt | grep -x -f data/include.txt |
+			grep -v -f $working/out2 | grep -v -f $working/todo |	grep $include >> $working/todo
 
 #		This code concatenates the HTML associated with the working file
 #		echo "<h2> START OF PAGE <a href='$current_url'>$current_url</a></h2>" >> $working/out3
 #		echo "" >> $working/out3
 
 		cat $cache/$html | iconv -c -t utf-8 | tidy >> $working/out3
+#		cat $cache/$html | iconv -c -t utf-8  >> $working/out3
 
 #		Add a page break
     echo "<div style='page-break-before: always'><table><td></td></table></div>" >> $working/out3
