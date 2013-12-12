@@ -10,6 +10,8 @@ do
 	target=$(echo $url | sed 's/.*www/www/' | sed 's/[^.]*$/pdf/')
 	mkdir -p $output/$(echo $target | sed 's/[^\/]*$//')
 	cp -v -a -f $cache/$source $output/$target
+    open $output/$target
+
 done
 
 git add $output*

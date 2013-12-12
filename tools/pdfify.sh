@@ -38,7 +38,6 @@ do
 	rm $cache/$sourcedirectory/gdsstyle.css
 	mv -f $cache/$outputdoc $cache/$targetfinaldoc	
 	echo $cache/$targetfinaldoc has been PDFified
-	open $cache/$targetfinaldoc 
 		
 done
 
