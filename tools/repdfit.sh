@@ -16,4 +16,6 @@ sh tools/pdf-outputter.sh doit
 #Construct an output file
 sh tools/file-constructor.sh doit
 
-open cache/docs/$(echo $url | sed 's/.*www/govuk/g')/ordered_html.html -a TextWrangler
+#open cache/docs/$(echo $url | sed 's/.*www/govuk/g')/ordered_html.html -a TextWrangler
+
+rm doit
