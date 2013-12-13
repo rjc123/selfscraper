@@ -1,4 +1,5 @@
-body, table, p { font-size: 8pt; border: none; border-style: none; !important }
+body, table, p { border: none; border-style: none; !important }
+body, table, p { font-size: 8pt; !important }
 p { align: none; !important }
 header, footer { font-size: 6pt; !important }
 a:link { color: #000000; text-decoration:none; !important }
@@ -7,6 +8,6 @@ a:link { color: #000000; text-decoration:none; !important }
 #nav, #sidebar { display: none; }
 body {  background: none; width: 100%; !important }
 address { align: center; color: #FFFFFF; !important }
-table td, table th { align:left; border:none; !important }
+table td, table th { font-size: 8pt; align:left; border:none; !important }
 table { width: 100%; !important }
 img { max-width:100%; max-height100%; !important }
