@@ -18,30 +18,30 @@ touch $working/todo
 
 
 
-for index_url in $(cat $urls) 
+for index_url in $(cat $urls)
 do
-	echo $index_url > $working/out1	
+	echo $index_url > $working/out1
 	echo $index_url > $working/todo
 	final_dir=$(echo $index_url | sed 's/.*www/govuk/g')
-	include=$(echo $index_url | grep -o 'www[^\/]*')
+	include=$(echo $index_url | grep -o 'www[^\/]*\/[^\/]*')
 	mkdir -p $cache/$final_dir
-	
+
 	while [ -s $working/todo ]
 	do
-		current_url=$(head -n1 $working/todo)	
+		current_url=$(head -n1 $working/todo)
 		echo $current_url >> $working/out2
 
 		unset LANG
-#		Figure out new links in the current working file		
+#		Figure out new links in the current working file
 		html=$(echo $current_url | sed 's/.*www/www/g' )
 
 # comment this so that the tidy doesn't remove all links
-		tidy $cache/$html | 
+		tidy $cache/$html |
 			iconv -c -t utf-8 > $cache/tmpola && mv -f $cache/tmpola $cache/$html
 
 #			iconv -c -t utf-8 $cache/$html > $cache/tmpola && mv -f $cache/tmpola $cache/$html
-			sed '/href/{N; s/\n//g;}' $cache/$html | grep -i -o 'href[^>]*' | grep -i -o 'http[^\"]*' | 			
-			grep -i -o 'http[^\#]*' | grep -v -x -f data/exclude.txt | grep -x -f data/include.txt |
+			sed '/href/{N; s/\n//g;}' $cache/$html | grep -i -o 'href[^>]*' | grep -i -o 'http[^\"]*' |
+			grep -i -o 'http[^\#]*' | grep -v -x -f data/exclude.txt | grep -x -f data/include.txt | grep -F $include |
 			grep -v -f $working/out2 | grep -v -f $working/todo |	grep $include >> $working/todo
 
 #		This code concatenates the HTML associated with the working file
@@ -69,8 +69,8 @@ do
 #		This code adds PDF and GIF attachments to out4
 		grep -o '.*.pdf' $cache/$html >> $working/out4
 		grep -o '.*.gif' $cache/$html >> $working/out4
-		grep -v -f data/exclude.txt $working/out4 | 
-			sort | uniq > $cache/cola && 
+		grep -v -f data/exclude.txt $working/out4 |
+			sort | uniq > $cache/cola &&
 			mv -f $cache/cola $working/out4
 		echo FOUND THESE ATTACHMENTS
 		cat $working/out4
@@ -83,16 +83,16 @@ do
 #		cat $cache/$mkdn2 >> $working/out5
 #		echo "END OF PAGE $current_url" >> $working/out5
 #		echo "" >> $working/out5
-		
+
 		tail -n +2 $working/todo | awk '!x[$0]++' > cache/tmpfile && mv cache/tmpfile $working/todo
-			
+
 	done
 	echo WORKING ON $index_url
-#	cat $working/out2 | awk '!x[$0]++' 
+#	cat $working/out2 | awk '!x[$0]++'
 	mv -f $working/out1 $cache/$final_dir/root_url
 	mv -f $working/out2 $cache/$final_dir/ordered_list_of_urls
 	mv -f $working/out3 $cache/$final_dir/ordered_html.html
 	mv -f $working/out4 $cache/$final_dir/attachment_list
 	echo Moved to $cache/$final_dir/ordered_html.html
-	
+
 done

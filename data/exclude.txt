@@ -2,6 +2,8 @@
 ^http://www.archive.official-documents.co.uk$
 ^http://www.official-documents.co.uk/$
 ^http://www.official-documents.co.uk$
+www.archive2.official-documents.co.uk/menu
+^http://www.archive2.official-documents.co.uk/index.html$
 backgrn1.gif
 prevblu.gif
 ctntblu.gif

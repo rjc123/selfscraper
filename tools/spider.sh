@@ -1,6 +1,6 @@
 #! /bin/bash
 #Not only a spider, it recursively downloads the HTML of a list of urls
-#usage: $1 file name
+#usage: $1 filename
 
 cache="cache/docs"
 

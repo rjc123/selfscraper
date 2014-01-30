@@ -1,1 +1,3 @@
 ^http://www.archive.official-documents.co.uk/document/.*$
+^http://www.archive2.official-documents.co.uk/document/.*$
+^http://www.official-documents.co.uk/document/.*$

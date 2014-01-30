@@ -7,12 +7,15 @@ mkdir -p $domain
 if [ $subdir ]
 	then
 	echo "Spidering a subdirectory $domain/$subdir"
-	wget --no-parent -I $subdir -r -l0 -k -x --delete-after -t2 -e robots=off -o $domain.$subdir.log $target
-	grep -F $domain $domain.$subdir.log | grep -o 'http:\/\/[^\ \"\(\)\<\>]*' | sed 's/\/$//' | sort | uniq > $domain.$subdir.urls.txt
+		wget --no-parent -I $subdir -r -l0 -x -k --reject=pdf --reject=PDF --reject=gif --reject=GIF -t2 -nd -P $domain.$subdir -e robots=off -o $domain.$subdir.log $target
+    cat $domain.$subdir/* >> $domain.$subdir.log
+		grep -F $domain $domain.$subdir.log | grep -o 'http:\/\/[^\ \"\(\)\<\>]*' | sed 's/\/$//' | sort | uniq > $domain.$subdir.urls.txt
 	else
-	echo "Spidering a whole domain $domain"
-	wget --no-parent -r -l0 -k -x --delete-after -t2 -e robots=off -o $domain.log $target
-	grep -F $domain $domain.log | grep -o 'http:\/\/[^\ \"\(\)\<\>]*' | sed 's/\/$//' | sort | uniq > $domain.urls.txt
+		echo "Spidering a whole domain $domain"
+		wget --no-parent -r -l0 -x -k --reject=pdf --reject=PDF --reject=gif --reject=GIF -t2 -nd -P $domain -e robots=off -o $domain.log $target
+	  cat $domain/*htm* >> $domain.log
+	  grep -F $domain $domain.log | grep -o 'http:\/\/[^\ \"\(\)\<\>]*' | sed 's/\/$//' | sort | uniq > $domain.urls.txt
+
 fi
 
 echo "DONE SPIDERING"

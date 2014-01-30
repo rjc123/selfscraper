@@ -1,4 +1,5 @@
-body, table, p { border: none; border-style: none; !important }
+body, table, p { color:black; background-color: #FFFFFF; bgcolor: #FFFFFF; border: none; border-style: none; !important }
+h1, h2, h3, h4, h5, h6, font {color:black;  !important}
 body, table, p { font-size: 8pt; !important }
 p { align: none; !important }
 header, footer { font-size: 6pt; !important }
@@ -11,3 +12,5 @@ address { align: center; color: #FFFFFF; !important }
 table td, table th { font-size: 8pt; align:left; border:none; !important }
 table { width: 100%; !important }
 img { max-width:100%; max-height100%; !important }
+div { position: inherit; width: 100% !important }
+tr { background-color: #FFFFFF; bgcolor: #FFFFFF !important}
